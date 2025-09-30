@@ -15,7 +15,7 @@ public class Question {
     private List<String> options; // Para multiple choice
     private String correctAnswer;
     private int points;
-
+    private String messi;
     public enum QuestionType {
         TRUE_FALSE,
         MULTIPLE_CHOICE
