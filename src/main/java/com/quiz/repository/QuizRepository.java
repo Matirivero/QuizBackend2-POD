@@ -34,7 +34,20 @@ public class QuizRepository {
                         QuestionType.MULTIPLE_CHOICE,
                         Arrays.asList("2004", "2008", "2012", "2016"), "2008", 10),
                 new Question(5L, "¿El tenis se juega en sets de 6 juegos?",
-                        QuestionType.TRUE_FALSE, null, "Verdadero", 10)
+                        QuestionType.TRUE_FALSE, null, "Verdadero", 10),
+                new Question(6L, "¿Cuántos balones de oro tiene Lionel Messi?",
+                        QuestionType.MULTIPLE_CHOICE,
+                        Arrays.asList("5", "6", "7", "8"), "8", 10),
+                new Question(7L, "¿El ajedrez es considerado un deporte?",
+                        QuestionType.TRUE_FALSE, null, "Verdadero", 10),
+                new Question(8L, "¿En rugby, que equipo se le conoce como los 'Springbooks'?",
+                        QuestionType.MULTIPLE_CHOICE,
+                        Arrays.asList("Sudafrica", "Nueva Zelanda", "Australia", "Argentina"), "Sudafrica", 10),
+                new Question(9L, "¿Lionel Messi es el maximo goleador de la historia del futbol?",
+                        QuestionType.TRUE_FALSE, null, "Falso", 10),
+                new Question(10L, "¿Cual es el equipo Argentino con mas Copas Libertadores ganadadas?",
+                        QuestionType.MULTIPLE_CHOICE,
+                        Arrays.asList("River Plate", "Sacachispas", "Boca Juniors", "Independiente"), "Independiente", 10)
         ));
         quizzes.put(deportes.getId(), deportes);
 
@@ -46,19 +59,33 @@ public class QuizRepository {
         historia.setDescription("Explora los eventos más importantes de la historia");
         historia.setTimeLimit(15);
         historia.setQuestions(Arrays.asList(
-                new Question(6L, "¿La Segunda Guerra Mundial terminó en 1945?",
+                new Question(11L, "¿La Segunda Guerra Mundial terminó en 1945?",
                         QuestionType.TRUE_FALSE, null, "Verdadero", 10),
-                new Question(7L, "¿En qué año llegó Cristóbal Colón a América?",
+                new Question(12L, "¿En qué año llegó Cristóbal Colón a América?",
                         QuestionType.MULTIPLE_CHOICE,
                         Arrays.asList("1490", "1491", "1492", "1493"), "1492", 10),
-                new Question(8L, "¿La Revolución Francesa comenzó en 1789?",
+                new Question(13L, "¿La Revolución Francesa comenzó en 1789?",
                         QuestionType.TRUE_FALSE, null, "Verdadero", 10),
-                new Question(9L, "¿Quién fue el primer presidente de Estados Unidos?",
+                new Question(14L, "¿Quién fue el primer presidente de Estados Unidos?",
                         QuestionType.MULTIPLE_CHOICE,
                         Arrays.asList("Thomas Jefferson", "George Washington", "Abraham Lincoln", "John Adams"),
                         "George Washington", 10),
-                new Question(10L, "¿El Imperio Romano cayó en el siglo V?",
-                        QuestionType.TRUE_FALSE, null, "Verdadero", 10)
+                new Question(15L, "¿El Imperio Romano cayó en el siglo V?",
+                        QuestionType.TRUE_FALSE, null, "Verdadero", 10),
+                new Question(16L, "¿La guerra fria fue principalmente entre Estados Unidos y la Union Sovietica?",
+                        QuestionType.TRUE_FALSE, null, "Verdadero", 10),
+                new Question(17L, "¿En que año cayó el muro de Berlin?",
+                        QuestionType.MULTIPLE_CHOICE,
+                        Arrays.asList("1960", "1989", "1980", "1939"), "1989", 10),
+                new Question(18L, "¿Argentina se declaró independiente en 1810?",
+                        QuestionType.TRUE_FALSE, null, "Falso", 10),
+                new Question(19L, "¿En que año fue el asesinato deL presidente estadounidense John F. Kennedy?",
+                        QuestionType.MULTIPLE_CHOICE,
+                        Arrays.asList("1963", "1973", "1917", "1945"), "1963", 10),
+                new Question(20L, "¿Quien desarrolló la Teoria de la Relatividad?",
+                        QuestionType.MULTIPLE_CHOICE,
+                        Arrays.asList("Albert Einstein", "Isaac Newton", "Galileo Galilei", "Michael Faraday"), "Albert Einstein", 10)
+
         ));
         quizzes.put(historia.getId(), historia);
 
@@ -70,18 +97,32 @@ public class QuizRepository {
         geografia.setDescription("Conoce el mundo y sus maravillas geográficas");
         geografia.setTimeLimit(12);
         geografia.setQuestions(Arrays.asList(
-                new Question(11L, "¿El río Amazonas es el más largo del mundo?",
+                new Question(21L, "¿El río Amazonas es el más largo del mundo?",
                         QuestionType.TRUE_FALSE, null, "Falso", 10),
-                new Question(12L, "¿Cuál es la capital de Australia?",
+                new Question(22L, "¿Cuál es la capital de Australia?",
                         QuestionType.MULTIPLE_CHOICE,
                         Arrays.asList("Sydney", "Melbourne", "Canberra", "Brisbane"), "Canberra", 10),
-                new Question(13L, "¿Europa y Asia están en el mismo continente?",
+                new Question(23L, "¿Rusia el pais mas extenso en cuanto a territorio?",
                         QuestionType.TRUE_FALSE, null, "Verdadero", 10),
-                new Question(14L, "¿Cuántos océanos hay en el mundo?",
+                new Question(24L, "¿Cuántos océanos hay en el mundo?",
                         QuestionType.MULTIPLE_CHOICE,
                         Arrays.asList("3", "4", "5", "6"), "5", 10),
-                new Question(15L, "¿El desierto del Sahara es el más grande del mundo?",
-                        QuestionType.TRUE_FALSE, null, "Falso", 10)
+                new Question(25L, "¿El desierto del Sahara es el más grande del mundo?",
+                        QuestionType.TRUE_FALSE, null, "Falso", 10),
+                new Question(26L, "¿Cuantas provincias tiene Argentina?",
+                        QuestionType.MULTIPLE_CHOICE,
+                        Arrays.asList("31", "21", "23", "26"), "23", 10),
+                new Question(27L, "¿Cual de estos NO es un País de Europa?",
+                        QuestionType.MULTIPLE_CHOICE,
+                        Arrays.asList("Montenegro", "Gales", "Irak", "Noruega"), "Irak", 10),
+                new Question(28L, "¿El Pais mas grande en cuanto a territorio de America es Brasil?",
+                        QuestionType.TRUE_FALSE, null, "Falso", 10),
+                new Question(29L, "¿El Pais mas pequeño del mundo en cuanto a territorio es Monaco?",
+                        QuestionType.TRUE_FALSE, null, "Falso", 10),
+                new Question(30L, "¿De que continente es Luxemburgo?",
+                        QuestionType.MULTIPLE_CHOICE,
+                        Arrays.asList("Asia", "Africa", "Europa", "Oceania"), "Europa", 10)
+
         ));
         quizzes.put(geografia.getId(), geografia);
 
