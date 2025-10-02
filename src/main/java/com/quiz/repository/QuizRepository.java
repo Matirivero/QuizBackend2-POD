@@ -134,19 +134,32 @@ public class QuizRepository {
         arte.setDescription("Descubre las obras maestras y artistas más importantes");
         arte.setTimeLimit(10);
         arte.setQuestions(Arrays.asList(
-                new Question(16L, "¿Leonardo da Vinci pintó La Mona Lisa?",
+                new Question(31L, "¿Leonardo da Vinci pintó La Mona Lisa?",
                         QuestionType.TRUE_FALSE, null, "Verdadero", 10),
-                new Question(17L, "¿En qué museo se encuentra 'La Noche Estrellada' de Van Gogh?",
+                new Question(32L, "¿En qué museo se encuentra 'La Noche Estrellada' de Van Gogh?",
                         QuestionType.MULTIPLE_CHOICE,
                         Arrays.asList("Louvre", "MoMA", "Prado", "British Museum"), "MoMA", 10),
-                new Question(18L, "¿Pablo Picasso era español?",
+                new Question(33L, "¿Pablo Picasso era español?",
                         QuestionType.TRUE_FALSE, null, "Verdadero", 10),
-                new Question(19L, "¿Qué movimiento artístico fundó Salvador Dalí?",
+                new Question(34L, "¿Qué movimiento artístico fundó Salvador Dalí?",
                         QuestionType.MULTIPLE_CHOICE,
                         Arrays.asList("Impresionismo", "Cubismo", "Surrealismo", "Expresionismo"),
                         "Surrealismo", 10),
-                new Question(20L, "¿La escultura 'David' fue creada por Miguel Ángel?",
-                        QuestionType.TRUE_FALSE, null, "Verdadero", 10)
+                new Question(35L, "¿La escultura 'David' fue creada por Miguel Ángel?",
+                        QuestionType.TRUE_FALSE, null, "Verdadero", 10),
+                new Question(36L, "¿El 'Guernica' de Picasso fue pintado en 1937?",
+                        QuestionType.TRUE_FALSE, null, "Verdadero", 10),
+                new Question(37L, "¿Qué artista pintó 'El nacimiento de Venus'?",
+                        QuestionType.MULTIPLE_CHOICE,
+                        Arrays.asList("Sandro Botticelli", "Caravaggio", "Rafael", "Tiziano"), "Sandro Botticelli", 10),
+                new Question(38L, "¿En qué ciudad está el Museo del Prado?",
+                        QuestionType.MULTIPLE_CHOICE,
+                        Arrays.asList("Barcelona", "Madrid", "Sevilla", "Valencia"), "Madrid", 10),
+                new Question(39L, "La técnica del fresco utiliza pintura al óleo.",
+                        QuestionType.TRUE_FALSE, null, "Falso", 10),
+                new Question(40L, "¿Qué arquitecto diseñó la Casa Batlló?",
+                        QuestionType.MULTIPLE_CHOICE,
+                        Arrays.asList("Le Corbusier", "Antoni Gaudí", "Frank Lloyd Wright", "Mies van der Rohe"), "Antoni Gaudí", 10)
         ));
         quizzes.put(arte.getId(), arte);
 
@@ -158,18 +171,32 @@ public class QuizRepository {
         ingles.setDescription("Test your English language skills");
         ingles.setTimeLimit(10);
         ingles.setQuestions(Arrays.asList(
-                new Question(21L, "Is 'They is happy' grammatically correct?",
+                new Question(41L, "Is 'They is happy' grammatically correct?",
                         QuestionType.TRUE_FALSE, null, "Falso", 10),
-                new Question(22L, "What is the past tense of 'go'?",
+                new Question(42L, "What is the past tense of 'go'?",
                         QuestionType.MULTIPLE_CHOICE,
                         Arrays.asList("goed", "went", "gone", "going"), "went", 10),
-                new Question(23L, "The word 'beautiful' is an adjective?",
+                new Question(43L, "The word 'beautiful' is an adjective?",
                         QuestionType.TRUE_FALSE, null, "Verdadero", 10),
-                new Question(24L, "Choose the correct form: 'She ___ to school every day'",
+                new Question(44L, "Choose the correct form: 'She ___ to school every day'",
                         QuestionType.MULTIPLE_CHOICE,
                         Arrays.asList("go", "goes", "going", "gone"), "goes", 10),
-                new Question(25L, "Is 'I have been working' present perfect continuous?",
-                        QuestionType.TRUE_FALSE, null, "Verdadero", 10)
+                new Question(45L, "Is 'I have been working' present perfect continuous?",
+                        QuestionType.TRUE_FALSE, null, "Verdadero", 10),
+                new Question(46L, "Choose the correct comparative: 'This book is ___ than that one.'",
+                        QuestionType.MULTIPLE_CHOICE,
+                        Arrays.asList("more interesting", "interestinger", "most interesting", "the more interesting"), "more interesting", 10),
+                new Question(47L, "¿'Childs' es el plural correcto de 'child'?",
+                        QuestionType.TRUE_FALSE, null, "Falso", 10),
+                new Question(48L, "Select the correct preposition: 'She is good ___ math.'",
+                        QuestionType.MULTIPLE_CHOICE,
+                        Arrays.asList("in", "at", "on", "for"), "at", 10),
+                new Question(49L, "In English, adverbs often end in '-ly'.",
+                        QuestionType.TRUE_FALSE, null, "Verdadero", 10),
+                new Question(50L, "Which sentence is in the passive voice?",
+                        QuestionType.MULTIPLE_CHOICE,
+                        Arrays.asList("The chef cooked the meal.", "The meal was cooked by the chef.", "The chef is cooking the meal.", "The chef cooks meals every day."), "The meal was cooked by the chef.", 10)
+
         ));
         quizzes.put(ingles.getId(), ingles);
 
@@ -181,19 +208,32 @@ public class QuizRepository {
         entretenimiento.setDescription("Películas, series y cultura pop");
         entretenimiento.setTimeLimit(10);
         entretenimiento.setQuestions(Arrays.asList(
-                new Question(26L, "¿'Titanic' ganó el Oscar a Mejor Película?",
+                new Question(51L, "¿'Avatar' (2009) fue dirigida por James Cameron?",
                         QuestionType.TRUE_FALSE, null, "Verdadero", 10),
-                new Question(27L, "¿Cuántas películas de Harry Potter hay?",
+                new Question(52L, "¿En qué año se estrenó 'The Matrix'?",
                         QuestionType.MULTIPLE_CHOICE,
-                        Arrays.asList("6", "7", "8", "9"), "8", 10),
-                new Question(28L, "¿Marvel y DC son de la misma compañía?",
+                        Arrays.asList("1997", "1999", "2001", "2003"), "1999", 10),
+                new Question(53L, "¿La serie 'The Crown' es de HBO?",
                         QuestionType.TRUE_FALSE, null, "Falso", 10),
-                new Question(29L, "¿Quién dirigió 'Inception'?",
+                new Question(54L, "¿Quién interpretó a Wolverine en la saga 'X-Men'?",
                         QuestionType.MULTIPLE_CHOICE,
-                        Arrays.asList("Steven Spielberg", "Christopher Nolan", "Martin Scorsese", "Quentin Tarantino"),
-                        "Christopher Nolan", 10),
-                new Question(30L, "¿'Friends' tiene 10 temporadas?",
-                        QuestionType.TRUE_FALSE, null, "Verdadero", 10)
+                        Arrays.asList("Hugh Jackman", "Chris Hemsworth", "Christian Bale", "Ben Affleck"), "Hugh Jackman", 10),
+                new Question(55L, "¿'La La Land' ganó el Óscar a Mejor Película?",
+                        QuestionType.TRUE_FALSE, null, "Falso", 10),
+                new Question(56L, "¿Cómo se llama el reino en 'Frozen'?",
+                        QuestionType.MULTIPLE_CHOICE,
+                        Arrays.asList("Arendelle", "Narnia", "Westeros", "Oz"), "Arendelle", 10),
+                new Question(57L, "¿'Stranger Things' transcurre en Hawkins, Indiana?",
+                        QuestionType.TRUE_FALSE, null, "Verdadero", 10),
+                new Question(58L, "¿Qué director es conocido como el 'Maestro del Suspenso'?",
+                        QuestionType.MULTIPLE_CHOICE,
+                        Arrays.asList("Stanley Kubrick", "Alfred Hitchcock", "Ridley Scott", "David Fincher"), "Alfred Hitchcock", 10),
+                new Question(59L, "¿'The Godfather Part II' funciona como secuela y precuela a la vez?",
+                        QuestionType.TRUE_FALSE, null, "Verdadero", 10),
+                new Question(60L, "¿Quién ganó el Óscar a Mejor Actor por 'The Revenant'?",
+                        QuestionType.MULTIPLE_CHOICE,
+                        Arrays.asList("Matt Damon", "Leonardo DiCaprio", "Michael Fassbender", "Eddie Redmayne"), "Leonardo DiCaprio", 10)
+
         ));
         quizzes.put(entretenimiento.getId(), entretenimiento);
     }
