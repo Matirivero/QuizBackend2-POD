@@ -14,5 +14,5 @@ public class Quiz {
     private String category;
     private String description;
     private List<Question> questions;
-    private int timeLimit; // en minutos
+    private int timeLimit;
 }

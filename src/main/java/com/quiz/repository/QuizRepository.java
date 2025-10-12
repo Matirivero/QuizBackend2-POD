@@ -15,7 +15,7 @@ public class QuizRepository {
 
     @PostConstruct
     public void initData() {
-        // Quiz de Deportes
+
         Quiz deportes = new Quiz();
         deportes.setId(idCounter++);
         deportes.setTitle("Conocimientos de Deportes");
@@ -45,13 +45,13 @@ public class QuizRepository {
                         Arrays.asList("Sudafrica", "Nueva Zelanda", "Australia", "Argentina"), "Sudafrica", 10),
                 new Question(9L, "¿Lionel Messi es el maximo goleador de la historia del futbol?",
                         QuestionType.TRUE_FALSE, null, "Falso", 10),
-                new Question(10L, "¿Cual es el equipo Argentino con mas Copas Libertadores ganadadas?",
+                new Question(10L, "¿Cual es el equipo Argentino con mas Copas Libertadores ganadas?",
                         QuestionType.MULTIPLE_CHOICE,
                         Arrays.asList("River Plate", "Sacachispas", "Boca Juniors", "Independiente"), "Independiente", 10)
         ));
         quizzes.put(deportes.getId(), deportes);
 
-        // Quiz de Historia
+
         Quiz historia = new Quiz();
         historia.setId(idCounter++);
         historia.setTitle("Historia Universal");
@@ -89,7 +89,7 @@ public class QuizRepository {
         ));
         quizzes.put(historia.getId(), historia);
 
-        // Quiz de Geografía
+
         Quiz geografia = new Quiz();
         geografia.setId(idCounter++);
         geografia.setTitle("Geografía Mundial");
@@ -126,7 +126,7 @@ public class QuizRepository {
         ));
         quizzes.put(geografia.getId(), geografia);
 
-        // Quiz de Arte
+
         Quiz arte = new Quiz();
         arte.setId(idCounter++);
         arte.setTitle("Historia del Arte");
@@ -163,7 +163,7 @@ public class QuizRepository {
         ));
         quizzes.put(arte.getId(), arte);
 
-        // Quiz de Inglés
+
         Quiz ingles = new Quiz();
         ingles.setId(idCounter++);
         ingles.setTitle("English Grammar & Vocabulary");
@@ -200,7 +200,7 @@ public class QuizRepository {
         ));
         quizzes.put(ingles.getId(), ingles);
 
-        // Quiz de Entretenimiento
+
         Quiz entretenimiento = new Quiz();
         entretenimiento.setId(idCounter++);
         entretenimiento.setTitle("Cine y Entretenimiento");

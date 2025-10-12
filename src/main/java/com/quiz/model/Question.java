@@ -12,7 +12,7 @@ public class Question {
     private Long id;
     private String text;
     private QuestionType type;
-    private List<String> options; // Para multiple choice
+    private List<String> options;
     private String correctAnswer;
     private int points;
 

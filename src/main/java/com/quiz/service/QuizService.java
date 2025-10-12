@@ -31,7 +31,7 @@ public class QuizService {
         summary.setCategory(quiz.getCategory());
         summary.setDescription(quiz.getDescription());
         summary.setTimeLimit(quiz.getTimeLimit());
-        summary.setQuestions(null); // No enviamos las preguntas en el listado
+        summary.setQuestions(null);
         return summary;
     }
 
