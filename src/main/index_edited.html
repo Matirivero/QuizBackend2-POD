@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App - Cuestionarios en Línea</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh; color: #333;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .header { text-align: center; margin-bottom: 40px; color: white; }
+        .header h1 { font-size: 2.5rem; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .header p { font-size: 1.2rem; opacity: 0.9; }
+        .quiz-categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 40px; }
+        .category-card {
+            background: white; border-radius: 15px; padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer;
+        }
+        .category-card:hover { transform: translateY(-5px); box-shadow: 0 12px 35px rgba(0,0,0,0.2); }
+        .category-icon { font-size: 2.5rem; margin-bottom: 15px; text-align: center; }
+        .category-title { font-size: 1.4rem; font-weight: bold; margin-bottom: 10px; color: #4a5568; }
+        .category-description { color: #718096; line-height: 1.5; margin-bottom: 15px; }
+        .category-info {
+            display: flex; justify-content: flex-end; align-items: center;
+            padding-top: 15px; border-top: 1px solid #e2e8f0; gap: 12px;
+        }
+        .start-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2); color: white;
+            padding: 10px 20px; border: none; border-radius: 25px; cursor: pointer; font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .start-btn:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); }
+        .quiz-container { display: none; background: white; border-radius: 15px; padding: 30px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+        .quiz-header { text-align: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 2px solid #e2e8f0; }
+        .quiz-title { font-size: 1.8rem; color: #4a5568; margin-bottom: 10px; }
+        .quiz-progress { background: #e2e8f0; height: 8px; border-radius: 4px; margin: 15px 0; }
+        .progress-bar { background: linear-gradient(135deg, #667eea, #764ba2); height: 100%; border-radius: 4px; transition: width 0.3s ease; }
+        .question-container { margin-bottom: 30px; }
+        .question-text { font-size: 1.3rem; font-weight: 500; margin-bottom: 20px; color: #2d3748; line-height: 1.5; }
+        .question-number { color: #667eea; font-weight: bold; }
+        .options { display: flex; flex-direction: column; gap: 10px; }
+        .option {
+            padding: 15px 20px; border: 2px solid #e2e8f0; border-radius: 10px;
+            cursor: pointer; transition: all 0.3s ease; background: #f7fafc;
+        }
+        .option:hover { border-color: #667eea; background: #edf2f7; }
+        .option.selected { border-color: #667eea; background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+        .quiz-controls { text-align: center; margin-top: 30px; }
+        .next-btn, .submit-btn, .back-btn {
+            padding: 12px 30px; margin: 0 10px; border: none; border-radius: 25px; font-weight: 500; cursor: pointer; transition: all 0.3s ease;
+        }
+        .next-btn, .submit-btn { background: linear-gradient(135deg, #48bb78, #38a169); color: white; }
+        .back-btn { background: #e2e8f0; color: #4a5568; }
+        .next-btn:hover, .submit-btn:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4); }
+        .back-btn:hover { background: #cbd5e0; }
+        .results-container { display: none; background: white; border-radius: 15px; padding: 30px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); text-align: center; }
+        .score-circle {
+            width: 150px; height: 150px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; margin: 0 auto 30px;
+            font-size: 2rem; font-weight: bold; color: white;
+        }
+        .score-excellent { background: linear-gradient(135deg, #48bb78, #38a169); }
+        .score-good { background: linear-gradient(135deg, #ed8936, #dd6b20); }
+        .score-needs-improvement { background: linear-gradient(135deg, #e53e3e, #c53030); }
+        .results-summary { margin-bottom: 30px; }
+        .results-title { font-size: 1.8rem; margin-bottom: 15px; color: #4a5568; }
+        .detailed-results { text-align: left; margin-top: 30px; }
+        .question-result { padding: 15px; margin-bottom: 10px; border-radius: 8px; border-left: 4px solid; }
+        .question-result.correct { background: #f0fff4; border-left-color: #48bb78; }
+        .question-result.incorrect { background: #fed7d7; border-left-color: #e53e3e; }
+        .restart-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 12px 30px;
+            border: none; border-radius: 25px; font-weight: 500; cursor: pointer; transition: all 0.3s ease;
+        }
+        .restart-btn:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); }
+        .loading { text-align: center; padding: 40px; color: white; font-size: 1.2rem; }
+        @media (max-width: 768px) {
+            .container { padding: 10px; }
+            .header h1 { font-size: 2rem; }
+            .quiz-categories { grid-template-columns: 1fr; }
+            .options { gap: 8px; }
+            .option { padding: 12px 15px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧠 Quiz App</h1>
+            <p>Pon a prueba tus conocimientos en diferentes categorías</p>
+        </div>
+
+        <div id="categories-view">
+            <div class="quiz-categories" id="categoriesContainer">
+                <div class="loading">Cargando cuestionarios...</div>
+            </div>
+        </div>
+
+        <div id="quiz-view" class="quiz-container">
+            <div class="quiz-header">
+                <div class="quiz-title" id="quizTitle"></div>
+                <div class="quiz-progress"><div class="progress-bar" id="progressBar"></div></div>
+                <div id="questionCounter"></div>
+            </div>
+            <div class="question-container">
+                <div class="question-text" id="questionText"></div>
+                <div class="options" id="optionsContainer"></div>
+            </div>
+            <div class="quiz-controls">
+                <button class="back-btn" id="backBtn" onclick="goBack()">⬅ Anterior</button>
+                <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Siguiente ➡</button>
+                <button class="submit-btn" id="submitBtn" onclick="submitQuiz()" style="display: none;">Finalizar Quiz</button>
+            </div>
+        </div>
+
+        <div id="results-view" class="results-container">
+            <div class="score-circle" id="scoreCircle"></div>
+            <div class="results-summary">
+                <div class="results-title" id="resultsTitle"></div>
+                <div id="resultsSummary"></div>
+            </div>
+            <div class="detailed-results" id="detailedResults"></div>
+            <button class="restart-btn" onclick="restartQuiz()">🔄 Hacer Otro Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:8080/api';
+        let currentQuiz = null;
+        let currentQuestionIndex = 0;
+        let userAnswers = {};
+        let allQuizzes = [];
+
+        const categoryIcons = {
+            'Deportes': '⚽','Historia': '🏛️','Geografia': '🌍','Arte': '🎨','Ingles': '🇬🇧','Entretenimiento': '🎬'
+        };
+
+        function getUserId() {
+            try {
+                let id = localStorage.getItem('quizUserId');
+                if (!id) {
+                    const rnd = (window.crypto && window.crypto.randomUUID) ? window.crypto.randomUUID() : String(Date.now());
+                    id = `user_${rnd}`;
+                    localStorage.setItem('quizUserId', id);
+                }
+                return id;
+            } catch (e) { return `user_${Date.now()}`; }
+        }
+
+        function normalizeBackendResult(r) {
+            const questionResults = (r.questionResults || []).map(q => ({
+                question: q.questionText,
+                userAnswer: q.userAnswer,
+                correctAnswer: q.correctAnswer,
+                isCorrect: (q.isCorrect !== undefined) ? q.isCorrect : !!q.correct,
+                points: q.pointsEarned
+            }));
+            const correctAnswers = questionResults.filter(q => q.isCorrect).length;
+            const percentage = Math.round(r.percentage || 0);
+            return {
+                correctAnswers,
+                totalQuestions: questionResults.length,
+                totalPoints: r.totalScore || 0,
+                maxPoints: r.maxScore || 0,
+                percentage,
+                questionResults
+            };
+        }
+
+        window.addEventListener('DOMContentLoaded', loadQuizzes);
+
+        async function loadQuizzes() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/quiz`);
+                if (!response.ok) throw new Error('Error al cargar los cuestionarios');
+                allQuizzes = await response.json();
+                displayCategories();
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('categoriesContainer').innerHTML = 
+                    '<div class="loading" style="color: #e53e3e;">Error: Asegúrate de que tu backend esté ejecutándose en localhost:8080</div>';
+            }
+        }
+
+        function displayCategories() {
+            const container = document.getElementById('categoriesContainer');
+            container.innerHTML = '';
+            allQuizzes.forEach(quiz => {
+                const card = document.createElement('div');
+                card.className = 'category-card';
+                card.onclick = () => startQuiz(quiz.id);
+                card.innerHTML = `
+                    <div class="category-icon">${categoryIcons[quiz.category] || '📚'}</div>
+                    <div class="category-title">${quiz.title}</div>
+                    <div class="category-description">${quiz.description}</div>
+                    <div class="category-info"><button class="start-btn">Comenzar</button></div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        async function startQuiz(quizId) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/quiz/${quizId}`);
+                if (!response.ok) throw new Error('Error al cargar el cuestionario');
+                currentQuiz = await response.json();
+                currentQuestionIndex = 0;
+                userAnswers = {};
+                document.getElementById('categories-view').style.display = 'none';
+                document.getElementById('quiz-view').style.display = 'block';
+                document.getElementById('results-view').style.display = 'none';
+                displayQuestion();
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al cargar el cuestionario. Verifica que el backend esté funcionando.');
+            }
+        }
+
+        function displayQuestion() {
+            if (!currentQuiz || !currentQuiz.questions) return;
+            const question = currentQuiz.questions[currentQuestionIndex];
+            const totalQuestions = currentQuiz.questions.length;
+            document.getElementById('quizTitle').textContent = currentQuiz.title;
+            document.getElementById('questionCounter').textContent = `Pregunta ${currentQuestionIndex + 1} de ${totalQuestions}`;
+            const progress = ((currentQuestionIndex + 1) / totalQuestions) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+            document.getElementById('questionText').innerHTML = `<span class="question-number">${currentQuestionIndex + 1}.</span> ${question.text}`;
+            displayOptions(question);
+            updateControls();
+        }
+
+        function displayOptions(question) {
+            const container = document.getElementById('optionsContainer');
+            container.innerHTML = '';
+            let options = [];
+            if (question.type === 'TRUE_FALSE') options = ['Verdadero', 'Falso'];
+            else if (question.type === 'MULTIPLE_CHOICE') options = question.options || [];
+            options.forEach(option => {
+                const el = document.createElement('div');
+                el.className = 'option';
+                el.textContent = option;
+                el.onclick = () => selectOption(option, el);
+                if (userAnswers[question.id] === option) el.classList.add('selected');
+                container.appendChild(el);
+            });
+        }
+
+        function selectOption(answer, element) {
+            const question = currentQuiz.questions[currentQuestionIndex];
+            userAnswers[question.id] = answer;
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        function updateControls() {
+            const backBtn = document.getElementById('backBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            backBtn.style.display = currentQuestionIndex > 0 ? 'inline-block' : 'none';
+            const isLast = currentQuestionIndex === currentQuiz.questions.length - 1;
+            nextBtn.style.display = isLast ? 'none' : 'inline-block';
+            submitBtn.style.display = isLast ? 'inline-block' : 'none';
+        }
+
+        function goBack() {
+            if (currentQuestionIndex > 0) { currentQuestionIndex--; displayQuestion(); }
+        }
+        function nextQuestion() {
+            if (currentQuestionIndex < currentQuiz.questions.length - 1) { currentQuestionIndex++; displayQuestion(); }
+        }
+
+        function calculateResults() {
+            let correct = 0, totalPoints = 0, maxPoints = 0;
+            const list = [];
+            currentQuiz.questions.forEach(q => {
+                const userAnswer = userAnswers[q.id];
+                const isCorrect = userAnswer === q.correctAnswer;
+                if (isCorrect) { correct++; totalPoints += q.points; }
+                maxPoints += q.points;
+                list.push({
+                    question: q.text, userAnswer, correctAnswer: q.correctAnswer,
+                    isCorrect, points: isCorrect ? q.points : 0
+                });
+            });
+            const percentage = Math.round((correct / currentQuiz.questions.length) * 100);
+            return { correctAnswers: correct, totalQuestions: currentQuiz.questions.length, totalPoints, maxPoints, percentage, questionResults: list };
+        }
+
+        async function submitQuiz() {
+            if (Object.keys(userAnswers).length < currentQuiz.questions.length) {
+                alert('Por favor responde todas las preguntas antes de finalizar.');
+                return;
+            }
+            const submission = { quizId: currentQuiz.id, userId: getUserId(), answers: userAnswers };
+            try {
+                const resp = await fetch(`${API_BASE_URL}/quiz/submit`, {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(submission)
+                });
+                if (!resp.ok) {
+                    const local = calculateResults();
+                    displayResults(local);
+                    return;
+                }
+                const backendResult = await resp.json();
+                const normalized = normalizeBackendResult(backendResult);
+                displayResults(normalized);
+            } catch (err) {
+                console.error('Error enviando resultados:', err);
+                const local = calculateResults();
+                displayResults(local);
+            }
+        }
+
+        function displayResults(results) {
+            document.getElementById('quiz-view').style.display = 'none';
+            document.getElementById('results-view').style.display = 'block';
+            const scoreCircle = document.getElementById('scoreCircle');
+            scoreCircle.textContent = `${results.percentage}%`;
+            scoreCircle.className = 'score-circle ' + (results.percentage >= 80 ? 'score-excellent' : results.percentage >= 60 ? 'score-good' : 'score-needs-improvement');
+            const message = results.percentage >= 80 ? '¡Excelente! Tienes un gran conocimiento en esta área.'
+                          : results.percentage >= 60 ? '¡Bien hecho! Tienes buenos conocimientos.'
+                          : 'Puedes mejorar. ¡Sigue practicando!';
+            document.getElementById('resultsTitle').textContent = message;
+            document.getElementById('resultsSummary').innerHTML = `
+                <p><strong>${results.correctAnswers}</strong> de <strong>${results.totalQuestions}</strong> respuestas correctas</p>
+                <p><strong>${results.totalPoints}</strong> de <strong>${results.maxPoints}</strong> puntos obtenidos</p>
+            `;
+            const detailed = document.getElementById('detailedResults');
+            detailed.innerHTML = '<h3 style="margin-bottom: 15px;">Respuestas Detalladas:</h3>';
+            results.questionResults.forEach((r, i) => {
+                const div = document.createElement('div');
+                div.className = `question-result ${r.isCorrect ? 'correct' : 'incorrect'}`;
+                div.innerHTML = `
+                    <strong>Pregunta ${i + 1}:</strong> ${r.question}<br>
+                    <strong>Tu respuesta:</strong> ${r.userAnswer}<br>
+                    <strong>Respuesta correcta:</strong> ${r.correctAnswer}
+                    ${r.isCorrect ? ' ✅' : ' ❌'}
+                `;
+                detailed.appendChild(div);
+            });
+        }
+
+        function restartQuiz() {
+            document.getElementById('results-view').style.display = 'none';
+            document.getElementById('categories-view').style.display = 'block';
+            currentQuiz = null; currentQuestionIndex = 0; userAnswers = {};
+        }
+    </script>
+</body>
+</html>
