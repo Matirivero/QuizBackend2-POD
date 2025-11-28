@@ -15,4 +15,23 @@ public class Quiz {
     private String description;
     private List<Question> questions;
     private int timeLimit;
+
+    public enum QuizStatus {
+        BORRADOR,
+        PUBLICADO,
+        CERRADO;
+
+        public QuizStatus siguiente() {
+            if (this == BORRADOR) return PUBLICADO;
+            if (this == PUBLICADO) return CERRADO;
+            return CERRADO;
+        }
+    }
+
+    private QuizStatus estado = QuizStatus.BORRADOR;
+
+    public void avanzarEstado() {
+        if (this.estado == null) this.estado = QuizStatus.BORRADOR;
+        this.estado = this.estado.siguiente();
+    }
 }
