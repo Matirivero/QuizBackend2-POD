@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.regex.Pattern;
 
 @Service
 public class QuizService {
+    private static final Pattern PATTERN_VALIDACION = Pattern.compile("^[A-Z0-9]+$");
 
     @Autowired
     private QuizRepository quizRepository;
@@ -143,5 +145,10 @@ public class QuizService {
                 overallAverage,
                 categoryStatsMap
         );
+    }
+    private void validarEntrada(String input) {
+        if (input == null || !PATTERN_VALIDACION.matcher(input).matches()) {
+            throw new IllegalArgumentException("Formato inválido");
+        }
     }
 }
