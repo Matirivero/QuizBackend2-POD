@@ -11,5 +11,5 @@ import java.util.Map;
 public class QuizSubmission {
     private Long quizId;
     private String userId;
-    private Map<Long, String> answers; // questionId -> respuesta del usuario
+    private Map<Long, String> answers;
 }
